@@ -22,8 +22,11 @@ public class GameMain extends JPanel {
     private String playerName1;
     private String playerName2;
 
+    private int xWin = 0;
+    private int oWin = 0;
+
     private static final String TITLE = "Tic Tac Toe";
-    private static final Color COLOR_BG_STATUS = new Color(216, 216, 216);
+
     private static final Font FONT_STATUS = new Font("OCR A Extended", Font.PLAIN, 14);
 
     //name getter
@@ -74,14 +77,14 @@ public class GameMain extends JPanel {
         // Setup the status bar (JLabel) to display status message
         statusBar = new JLabel();
         statusBar.setFont(FONT_STATUS);
-        statusBar.setBackground(COLOR_BG_STATUS);
+
         statusBar.setOpaque(true);
         statusBar.setPreferredSize(new Dimension(300, 30));
         statusBar.setHorizontalAlignment(JLabel.CENTER);
-        statusBar.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 12));
+        statusBar.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         setPreferredSize(new Dimension(Board.CANVAS_WIDTH, Board.CANVAS_HEIGHT + 30));
-        setBorder(BorderFactory.createLineBorder(COLOR_BG_STATUS, 2, false));
+
 
         // Set up game
         initGame();
@@ -126,15 +129,19 @@ public class GameMain extends JPanel {
             if (currentState == State.DRAW) {
                 message = "It's a Draw!";
             } else if (currentState == State.CROSS_WON) {
-                message = "'RED' Won!";
+                xWin++;
+                message = playerName1 + " Won! Poin: " + xWin;
                 textColor = Color.RED;
+                updateScore();
             } else if (currentState == State.NOUGHT_WON) {
-                message = "'PINK' Won!";
-                textColor = Color.PINK;
+                oWin++;
+                message = playerName2 + " Won! Poin: " + oWin;
+                textColor = Color.BLACK;
+                updateScore();
             }
 
             statusBar.setForeground(textColor);
-            statusBar.setText(message + " Click 'New Game' to play again.");
+            statusBar.setText(message + " | Click anywhere to play again.");
         }
     }
 
@@ -159,7 +166,7 @@ public class GameMain extends JPanel {
                 //Create Menu Bar
                 JMenuBar menubar = new JMenuBar();
                 JMenu menu = new JMenu("Menu");
-                JMenuItem newGame = new JMenuItem("New Game");
+                JMenuItem restartGame = new JMenuItem("Restart Game");
                 JMenuItem quit = new JMenuItem("Quit");
 
                 //Setup main JPanel
@@ -175,11 +182,11 @@ public class GameMain extends JPanel {
                 //Add to menubar
                 menubar.add(menu);
                 menubar.add(statusBar);
-                menu.add(newGame);
+                menu.add(restartGame);
                 menu.add(quit);
                 frame.setJMenuBar(menubar);
 
-                newGame.addActionListener(new ActionListener()
+                restartGame.addActionListener(new ActionListener()
                 {
                     public void actionPerformed(ActionEvent e) {
                         mainPanel.newGameActionPerformed(e);
@@ -192,7 +199,20 @@ public class GameMain extends JPanel {
                     }
                 });
                 frame.setVisible(true);            // show it
+                frame.setResizable(false);
             }
         });
+    }
+
+    public void updateScore() {
+        if (xWin == 3) {
+            JOptionPane.showMessageDialog(this,playerName1 + " is the winner! Congratulations");
+            xWin = 0;
+            oWin = 0;
+        } else if (oWin == 3) {
+            JOptionPane.showMessageDialog(this, playerName2 + " is the winner! Congratulations");
+            xWin = 0;
+            oWin = 0;
+        }
     }
 }
