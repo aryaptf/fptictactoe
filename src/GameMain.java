@@ -26,7 +26,7 @@ public class GameMain extends JPanel {
     private int oWin = 0;
 
     private static final String TITLE = "Tic Tac Toe";
-
+    private static final Color COLOR_BG_STATUS = new Color(216, 216, 216);
     private static final Font FONT_STATUS = new Font("OCR A Extended", Font.PLAIN, 14);
 
     //name getter
@@ -44,10 +44,16 @@ public class GameMain extends JPanel {
     private JButton newGameButton;
 
     public GameMain() {
-        //input player's 1 name
+        //input player's name
         playerName1 = JOptionPane.showInputDialog("Enter player name 1:");
-        //input player's 2 name
         playerName2 = JOptionPane.showInputDialog("Enter player name 2:");
+        if (playerName1 == null || playerName1.trim().isEmpty()) {
+            playerName1 = "RED";
+        }
+
+        if (playerName2 == null || playerName2.trim().isEmpty()) {
+            playerName2 = "PINK";
+        }
 
         // This JPanel fires MouseEvent
         super.addMouseListener(new MouseAdapter() {
@@ -77,14 +83,16 @@ public class GameMain extends JPanel {
         // Setup the status bar (JLabel) to display status message
         statusBar = new JLabel();
         statusBar.setFont(FONT_STATUS);
-
+        statusBar.setBackground(COLOR_BG_STATUS);
         statusBar.setOpaque(true);
         statusBar.setPreferredSize(new Dimension(300, 30));
         statusBar.setHorizontalAlignment(JLabel.CENTER);
         statusBar.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        setPreferredSize(new Dimension(Board.CANVAS_WIDTH, Board.CANVAS_HEIGHT + 30));
-
+        super.setLayout(new BorderLayout());
+        super.add(statusBar, BorderLayout.PAGE_END); // same as SOUTH
+        super.setPreferredSize(new Dimension(Board.CANVAS_WIDTH, Board.CANVAS_HEIGHT + 54));
+        setBorder(BorderFactory.createLineBorder(COLOR_BG_STATUS, 2, false));
 
         // Set up game
         initGame();
@@ -181,7 +189,7 @@ public class GameMain extends JPanel {
 
                 //Add to menubar
                 menubar.add(menu);
-                menubar.add(statusBar);
+
                 menu.add(restartGame);
                 menu.add(quit);
                 frame.setJMenuBar(menubar);
