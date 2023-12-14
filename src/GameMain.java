@@ -10,6 +10,8 @@
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -35,11 +37,10 @@ public class GameMain extends JPanel {
     private Board board;
     private State currentState;
     private Seed currentPlayer;
-    private JLabel statusBar;
+    private static JLabel statusBar;
     private JButton newGameButton;
 
     public GameMain() {
-        JOptionPane.showMessageDialog(null, "Welcome! click OK to start game! Tic Tac Toe");
         //input player's 1 name
         playerName1 = JOptionPane.showInputDialog("Enter player name 1:");
         //input player's 2 name
@@ -79,18 +80,6 @@ public class GameMain extends JPanel {
         statusBar.setHorizontalAlignment(JLabel.CENTER);
         statusBar.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 12));
 
-        newGameButton = new JButton("New Game");
-        newGameButton.addActionListener(e -> {
-            newGame();
-            repaint();
-        });
-
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.add(newGameButton);
-
-        setLayout(new BorderLayout());
-        add(statusBar, BorderLayout.NORTH);
-        add(buttonPanel, BorderLayout.SOUTH);
         setPreferredSize(new Dimension(Board.CANVAS_WIDTH, Board.CANVAS_HEIGHT + 30));
         setBorder(BorderFactory.createLineBorder(COLOR_BG_STATUS, 2, false));
 
@@ -149,14 +138,61 @@ public class GameMain extends JPanel {
         }
     }
 
+    public void quitActionPerformed(ActionEvent evt){
+        System.exit(0);
+    }
+
+    public void newGameActionPerformed(ActionEvent evt) {
+        repaint();
+        newGame();
+    }
+
     public static void main(String[] args) {
-        javax.swing.SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame(TITLE);
-            frame.setContentPane(new GameMain());
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.pack();
-            frame.setLocationRelativeTo(null);
-            frame.setVisible(true);
+        // Run GUI construction codes in Event-Dispatching thread for thread safety
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                //pop up untuk welcome
+                JOptionPane.showMessageDialog(null, "Welcome! click OK to start game! Tic Tac Toe");
+
+                JFrame frame = new JFrame(TITLE);
+
+                //Create Menu Bar
+                JMenuBar menubar = new JMenuBar();
+                JMenu menu = new JMenu("Menu");
+                JMenuItem newGame = new JMenuItem("New Game");
+                JMenuItem quit = new JMenuItem("Quit");
+
+                //Setup main JPanel
+                GameMain mainPanel= new GameMain();
+                Board board1 = new Board();
+
+                // Set the content-pane of the JFrame to an instance of main JPanel
+                frame.setContentPane(mainPanel);
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.pack();
+                frame.setLocationRelativeTo(null); // center the application window
+
+                //Add to menubar
+                menubar.add(menu);
+                menubar.add(statusBar);
+                menu.add(newGame);
+                menu.add(quit);
+                frame.setJMenuBar(menubar);
+
+                newGame.addActionListener(new ActionListener()
+                {
+                    public void actionPerformed(ActionEvent e) {
+                        mainPanel.newGameActionPerformed(e);
+                    }
+                });
+
+                quit.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        mainPanel.quitActionPerformed(e);
+                    }
+                });
+                frame.setVisible(true);            // show it
+            }
         });
     }
 }
