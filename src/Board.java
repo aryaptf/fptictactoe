@@ -25,10 +25,6 @@ public class Board {
     public static final Color COLOR_GRID = Color.LIGHT_GRAY;  // grid lines
     public static final int Y_OFFSET = 1;  // Fine tune for better display
 
-    // Load images for X and O
-    private Image xImage = new ImageIcon("angry.png").getImage();
-    private Image oImage = new ImageIcon("marah.png").getImage();
-
 
     // Define properties (package-visible)
     /** Composes of 2D array of ROWS-by-COLS Cell instances */

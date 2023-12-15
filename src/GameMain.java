@@ -22,6 +22,7 @@ public class GameMain extends JPanel {
     private String playerName1;
     private String playerName2;
 
+    //player's poin
     private int xWin = 0;
     private int oWin = 0;
 
