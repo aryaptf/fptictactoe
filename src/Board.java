@@ -13,7 +13,7 @@ import java.awt.*;
 /**
  * The Board class models the ROWS-by-COLS game board.
  */
-public class Board extends JFrame{
+public class Board{
     private static final long serialVersionUID = 1L;
     public static final int ROWS = 3;
     public static final int COLS = 3;
