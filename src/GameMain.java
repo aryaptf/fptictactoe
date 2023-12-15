@@ -180,7 +180,6 @@ public class GameMain extends JPanel {
 
                 //Setup main JPanel
                 GameMain mainPanel= new GameMain();
-                Board board1 = new Board();
 
                 // Set the content-pane of the JFrame to an instance of main JPanel
                 frame.setContentPane(mainPanel);
