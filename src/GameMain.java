@@ -185,6 +185,7 @@ public class GameMain extends JPanel {
                 // Set the content-pane of the JFrame to an instance of main JPanel
                 frame.setContentPane(mainPanel);
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setResizable(false);
                 frame.pack();
                 frame.setLocationRelativeTo(null); // center the application window
 
