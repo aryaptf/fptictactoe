@@ -163,6 +163,18 @@ public class GameMain extends JPanel {
         newGame();
     }
 
+    private void showAboutDialog() {
+        String aboutMessage = "ES234317-Algorithm and Data Structures\n"
+                + "Semester Ganjil, 2023/2024\n"
+                + "Group Capstone Project\n"
+                + "Group #9\n"
+                + "1 - 5026221131 - Maulina Nur Laila\n"
+                + "2 - 5026221172 - Arya Putra Tsabitah Firjatulloh\n"
+                + "3 - 5026221179 - Kadek Mawar Kumala Dewi";
+
+        JOptionPane.showMessageDialog(this, aboutMessage, "About", JOptionPane.INFORMATION_MESSAGE);
+    }
+
     public static void main(String[] args) {
         // Run GUI construction codes in Event-Dispatching thread for thread safety
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -177,6 +189,8 @@ public class GameMain extends JPanel {
                 JMenu menu = new JMenu("Menu");
                 JMenuItem restartGame = new JMenuItem("Restart Game");
                 JMenuItem quit = new JMenuItem("Quit");
+                JMenu aboutMenu = new JMenu ("About");
+                JMenuItem aboutItem = new JMenuItem("About Us");
 
                 //Setup main JPanel
                 GameMain mainPanel= new GameMain();
@@ -207,6 +221,17 @@ public class GameMain extends JPanel {
                         mainPanel.quitActionPerformed(e);
                     }
                 });
+
+                aboutItem.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        new AboutDialog(frame).setVisible(true);
+                    }
+                });
+                aboutMenu = add(aboutItem);
+                JMenuBar menubar = new JMenuBar();
+                menubar.add(aboutMenu):
+                    frame.setJMenuBar(menubar);
+                
                 frame.setVisible(true);            // show it
                 frame.setResizable(false);
             }
