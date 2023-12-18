@@ -22,10 +22,6 @@ public class GameMain extends JPanel {
     private String playerName1;
     private String playerName2;
 
-    //player's poin
-    private int xWin = 0;
-    private int oWin = 0;
-
     private static final String TITLE = "Tic Tac Toe";
     private static final Color COLOR_BG_STATUS = new Color(216, 216, 216);
     private static final Font FONT_STATUS = new Font("OCR A Extended", Font.PLAIN, 14);
@@ -45,16 +41,10 @@ public class GameMain extends JPanel {
     private JButton newGameButton;
 
     public GameMain() {
-        //input player's name
+        //input player's 1 name
         playerName1 = JOptionPane.showInputDialog("Enter player name 1:");
+        //input player's 2 name
         playerName2 = JOptionPane.showInputDialog("Enter player name 2:");
-        if (playerName1 == null || playerName1.trim().isEmpty()) {
-            playerName1 = "RED";
-        }
-
-        if (playerName2 == null || playerName2.trim().isEmpty()) {
-            playerName2 = "PINK";
-        }
 
         // This JPanel fires MouseEvent
         super.addMouseListener(new MouseAdapter() {
@@ -88,11 +78,9 @@ public class GameMain extends JPanel {
         statusBar.setOpaque(true);
         statusBar.setPreferredSize(new Dimension(300, 30));
         statusBar.setHorizontalAlignment(JLabel.CENTER);
-        statusBar.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        statusBar.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 12));
 
-        super.setLayout(new BorderLayout());
-        super.add(statusBar, BorderLayout.PAGE_END); // same as SOUTH
-        super.setPreferredSize(new Dimension(Board.CANVAS_WIDTH, Board.CANVAS_HEIGHT + 54));
+        setPreferredSize(new Dimension(Board.CANVAS_WIDTH, Board.CANVAS_HEIGHT + 30));
         setBorder(BorderFactory.createLineBorder(COLOR_BG_STATUS, 2, false));
 
         // Set up game
@@ -138,19 +126,15 @@ public class GameMain extends JPanel {
             if (currentState == State.DRAW) {
                 message = "It's a Draw!";
             } else if (currentState == State.CROSS_WON) {
-                xWin++;
-                message = playerName1 + " Won! Poin: " + xWin;
+                message = "'RED' Won!";
                 textColor = Color.RED;
-                updateScore();
             } else if (currentState == State.NOUGHT_WON) {
-                oWin++;
-                message = playerName2 + " Won! Poin: " + oWin;
-                textColor = Color.BLACK;
-                updateScore();
+                message = "'PINK' Won!";
+                textColor = Color.PINK;
             }
 
             statusBar.setForeground(textColor);
-            statusBar.setText(message + " | Click anywhere to play again.");
+            statusBar.setText(message + " Click 'New Game' to play again.");
         }
     }
 
@@ -175,27 +159,27 @@ public class GameMain extends JPanel {
                 //Create Menu Bar
                 JMenuBar menubar = new JMenuBar();
                 JMenu menu = new JMenu("Menu");
-                JMenuItem restartGame = new JMenuItem("Restart Game");
+                JMenuItem newGame = new JMenuItem("New Game");
                 JMenuItem quit = new JMenuItem("Quit");
 
                 //Setup main JPanel
                 GameMain mainPanel= new GameMain();
+                Board board1 = new Board();
 
                 // Set the content-pane of the JFrame to an instance of main JPanel
                 frame.setContentPane(mainPanel);
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.setResizable(false);
                 frame.pack();
                 frame.setLocationRelativeTo(null); // center the application window
 
                 //Add to menubar
                 menubar.add(menu);
-
-                menu.add(restartGame);
+                menubar.add(statusBar);
+                menu.add(newGame);
                 menu.add(quit);
                 frame.setJMenuBar(menubar);
 
-                restartGame.addActionListener(new ActionListener()
+                newGame.addActionListener(new ActionListener()
                 {
                     public void actionPerformed(ActionEvent e) {
                         mainPanel.newGameActionPerformed(e);
@@ -207,21 +191,8 @@ public class GameMain extends JPanel {
                         mainPanel.quitActionPerformed(e);
                     }
                 });
-                frame.setVisible(true);
-                frame.setResizable(false);
+                frame.setVisible(true);            // show it
             }
         });
-    }
-
-    public void updateScore() {
-        if (xWin == 3) {
-            JOptionPane.showMessageDialog(this,playerName1 + " is the winner! Congratulations");
-            xWin = 0;
-            oWin = 0;
-        } else if (oWin == 3) {
-            JOptionPane.showMessageDialog(this, playerName2 + " is the winner! Congratulations");
-            xWin = 0;
-            oWin = 0;
-        }
     }
 }
