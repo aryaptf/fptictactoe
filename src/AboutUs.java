@@ -12,7 +12,7 @@ public class AboutUs extends JDialog {
         JLabel photoLabel = new JLabel (new ImageIcon("src\\fotoasd.jpg"));
         JLabel nameLabel = new JLabel ("1 - 5026221131 - Maulina Nur Laila\n" + "2 - 5026221172 - Arya Putra Tsabitah Firjatulloh\n"
                 + "3 - 5026221179 - Kadek Mawar Kumala Dewi");
-         JPanel panel = new JPanel (new GridLayout(2, 2));
+         JPanel panel = new JPanel (new GridLayout(1, 1));
      panel.add(photoLabel);
      panel.add(nameLabel);
      
