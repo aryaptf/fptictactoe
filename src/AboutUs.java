@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 public class AboutUs extends JDialog {
    public AboutUs(JFrame parent) {
         super(parent, "About", true);
-        setSize(400, 200);
+        setSize(600, 400);
         setLocationRelativeTo(parent);
 
         JLabel photoLabel = new JLabel (new ImageIcon("src\\fotoasd.jpg"));
