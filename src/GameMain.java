@@ -229,7 +229,7 @@ public class GameMain extends JPanel {
                 });
                 aboutMenu = add(aboutItem);
                 JMenuBar menubar = new JMenuBar();
-                menubar.add(aboutMenu):
+                menubar.add(aboutMenu);
                     frame.setJMenuBar(menubar);
                 
                 frame.setVisible(true);            // show it
