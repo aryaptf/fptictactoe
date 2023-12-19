@@ -185,7 +185,7 @@ public class GameMain extends JPanel {
                 JFrame frame = new JFrame(TITLE);
 
                 //Create Menu Bar
-                JMenuBar menuBar = new JMenuBar();
+                JMenuBar menubar = new JMenuBar();
                 JMenu menu = new JMenu("Menu");
                 JMenuItem restartGame = new JMenuItem("Restart Game");
                 JMenuItem quit = new JMenuItem("Quit");
@@ -202,11 +202,11 @@ public class GameMain extends JPanel {
                 frame.setLocationRelativeTo(null); // center the application window
 
                 //Add to menubar
-                menuBar.add(menu);
+                menubar.add(menu);
                 menu.add(restartGame);
                 menu.add(aboutItem);
                 menu.add(quit);
-                frame.setJMenuBar(menuBar);
+                frame.setJMenuBar(menubar);
 
                 restartGame.addActionListener(new ActionListener()
                 {
