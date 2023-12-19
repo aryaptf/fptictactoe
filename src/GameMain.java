@@ -163,6 +163,22 @@ public class GameMain extends JPanel {
         newGame();
     }
 
+    public void changePlayerNameActionPerformed(ActionEvent evt) {
+        playerName1 = JOptionPane.showInputDialog("Enter player name 1:");
+        playerName2 = JOptionPane.showInputDialog("Enter player name 2:");
+        if (playerName1 == null || playerName1.trim().isEmpty()) {
+            playerName1 = "RED";
+        }
+
+        if (playerName2 == null || playerName2.trim().isEmpty()) {
+            playerName2 = "PINK";
+        }
+        repaint();
+        newGame();
+        xWin = 0;
+        oWin = 0;
+    }
+
     private void showAboutDialog() {
         String aboutMessage = "ES234317-Algorithm and Data Structures\n"
                 + "Semester Ganjil, 2023/2024\n"
@@ -188,8 +204,10 @@ public class GameMain extends JPanel {
                 JMenuBar menubar = new JMenuBar();
                 JMenu menu = new JMenu("Menu");
                 JMenuItem restartGame = new JMenuItem("Restart Game");
-                JMenuItem quit = new JMenuItem("Quit");
+                JMenuItem changePlayer = new JMenuItem("Change Player");
                 JMenuItem aboutItem = new JMenuItem("About Us");
+                JMenuItem quit = new JMenuItem("Quit");
+
 
                 //Setup main JPanel
                 GameMain mainPanel= new GameMain();
@@ -204,6 +222,7 @@ public class GameMain extends JPanel {
                 //Add to menubar
                 menubar.add(menu);
                 menu.add(restartGame);
+                menu.add(changePlayer);
                 menu.add(aboutItem);
                 menu.add(quit);
                 frame.setJMenuBar(menubar);
@@ -215,15 +234,22 @@ public class GameMain extends JPanel {
                     }
                 });
 
-                quit.addActionListener(new ActionListener() {
+                changePlayer.addActionListener(new ActionListener()
+                {
                     public void actionPerformed(ActionEvent e) {
-                        mainPanel.quitActionPerformed(e);
+                        mainPanel.changePlayerNameActionPerformed(e);
                     }
                 });
 
                 aboutItem.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         new AboutUs(frame).setVisible(true);
+                    }
+                });
+
+                quit.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        mainPanel.quitActionPerformed(e);
                     }
                 });
 
