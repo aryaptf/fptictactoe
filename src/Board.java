@@ -17,12 +17,12 @@ public class Board{
     private static final long serialVersionUID = 1L;
     public static final int ROWS = 3;
     public static final int COLS = 3;
-    public static final int CANVAS_WIDTH = Cell.SIZE * COLS; 
+    public static final int CANVAS_WIDTH = Cell.SIZE * COLS;
     public static final int CANVAS_HEIGHT = Cell.SIZE * ROWS;
-    public static final int GRID_WIDTH = 8; 
+    public static final int GRID_WIDTH = 8;
     public static final int GRID_WIDHT_HALF = GRID_WIDTH / 2;
     public static final Color COLOR_GRID = Color.LIGHT_GRAY;
-    public static final int Y_OFFSET = 1; 
+    public static final int Y_OFFSET = 1;
     Cell[][] cells;
 
     public Board() {
@@ -51,14 +51,14 @@ public class Board{
         if (cells[selectedRow][0].content == player
                 && cells[selectedRow][1].content == player
                 && cells[selectedRow][2].content == player
-                || cells[0][selectedCol].content == player 
+                || cells[0][selectedCol].content == player
                 && cells[1][selectedCol].content == player
                 && cells[2][selectedCol].content == player
-                || selectedRow == selectedCol  
+                || selectedRow == selectedCol
                 && cells[0][0].content == player
                 && cells[1][1].content == player
                 && cells[2][2].content == player
-                || selectedRow + selectedCol == 2 
+                || selectedRow + selectedCol == 2
                 && cells[0][2].content == player
                 && cells[1][1].content == player
                 && cells[2][0].content == player) {
@@ -71,7 +71,7 @@ public class Board{
                     }
                 }
             }
-            return State.DRAW; 
+            return State.DRAW;
         }
     }
 
@@ -89,7 +89,7 @@ public class Board{
         }
         for (int row = 0; row < ROWS; ++row) {
             for (int col = 0; col < COLS; ++col) {
-                cells[row][col].paint(g); 
+                cells[row][col].paint(g);
             }
         }
     }

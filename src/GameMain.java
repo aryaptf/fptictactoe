@@ -163,6 +163,18 @@ public class GameMain extends JPanel {
         newGame();
     }
 
+    private void showAboutDialog() {
+        String aboutMessage = "ES234317-Algorithm and Data Structures\n"
+                + "Semester Ganjil, 2023/2024\n"
+                + "Group Capstone Project\n"
+                + "Group #9\n"
+                + "1 - 5026221131 - Maulina Nur Laila\n"
+                + "2 - 5026221172 - Arya Putra Tsabitah Firjatulloh\n"
+                + "3 - 5026221179 - Kadek Mawar Kumala Dewi";
+
+        JOptionPane.showMessageDialog(this, aboutMessage, "About", JOptionPane.INFORMATION_MESSAGE);
+    }
+
     public static void main(String[] args) {
         // Run GUI construction codes in Event-Dispatching thread for thread safety
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -173,10 +185,11 @@ public class GameMain extends JPanel {
                 JFrame frame = new JFrame(TITLE);
 
                 //Create Menu Bar
-                JMenuBar menubar = new JMenuBar();
+                JMenuBar menuBar = new JMenuBar();
                 JMenu menu = new JMenu("Menu");
                 JMenuItem restartGame = new JMenuItem("Restart Game");
                 JMenuItem quit = new JMenuItem("Quit");
+                JMenuItem aboutItem = new JMenuItem("About Us");
 
                 //Setup main JPanel
                 GameMain mainPanel= new GameMain();
@@ -189,11 +202,11 @@ public class GameMain extends JPanel {
                 frame.setLocationRelativeTo(null); // center the application window
 
                 //Add to menubar
-                menubar.add(menu);
-
+                menuBar.add(menu);
                 menu.add(restartGame);
+                menu.add(aboutItem);
                 menu.add(quit);
-                frame.setJMenuBar(menubar);
+                frame.setJMenuBar(menuBar);
 
                 restartGame.addActionListener(new ActionListener()
                 {
@@ -207,6 +220,13 @@ public class GameMain extends JPanel {
                         mainPanel.quitActionPerformed(e);
                     }
                 });
+
+                aboutItem.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        new AboutUs(frame).setVisible(true);
+                    }
+                });
+
                 frame.setVisible(true);            // show it
                 frame.setResizable(false);
             }
